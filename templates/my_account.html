@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="\static\bootstrap-3.3.7-dist\css\bootstrap.min.css">
+    <title>Title</title>
+    <style>
+        body{
+            background-color: seashell;
+        }
+
+        .table{
+            width: 80%;
+            position: relative;
+            left: 130px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="nav nav-pills">
+      <li style="margin-left: 130px;margin-top: 20px; color: blue">可用资金: <span>{{ cash }}</span></li>
+        <input type="radio" checked="checked"  name="activity" value="md" style="margin-left: 30px;margin-top: 25px">
+    <table class="table table-hover table-bordered table-condensed">
+        <tr>
+            <th>持币类型</th>px" >均线策略
+
+
+            <th>数量</th>
+            <th>成本价</th>
+            <th>挂单</th>
+            <th>冻结金额</th>
+            <th>盈亏率</th><br/>
+        </tr>
+        {% for k,v in account.items %}
+        <tr class="{{ k }}">
+            <th>{{ k }}</th>
+            <th>{{ v.holding }}</th>
+            <th>{{ v.cost }}</th>
+            <th>{{ v.order }}</th>
+            <th>{{ v.order_cash }}</th>
+            <th>{{ v.ratio }}</th>
+        </tr>
+        {% endfor %}
+
+    </table>
+    <img src="/plot" alt="资产收益率" style="margin-left: 130px">
+<script src="\static\jquery-3.3.1.min.js"></script>
+<script>
+
+    var obj = setInterval(send,30000);
+
+    function send() {
+        $.ajax({
+            url: '/current_price/',
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (arg) {
+                for (var i=0;i<arg.length;i++){
+                    $('.'+arg[i]).children('th').eq(1).text(arg[i]['holding']);
+                    $('.'+arg[i]).children('th').eq(2).text(arg[i]['cost']);
+                    $('.'+arg[i]).children('th').eq(3).text(arg[i]['order']);
+                    $('.'+arg[i]).children('th').eq(4).text(arg[i]['order_cash']);
+                    $('.'+arg[i]).children('th').eq(5).text(arg[i]['ratio']);
+                }
+            }
+
+        })
+    }
+
+
+</script>
+</body>
+</html>

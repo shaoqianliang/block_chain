@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="\static\bootstrap-3.3.7-dist\css\bootstrap.min.css">
+    <title>Title</title>
+</head>
+<body>
+    <ul class="nav nav-pills">
+      <li style="margin-left: 50px; color: blue">初始资金<span>{{ cash }}</span></li>
+        <input type="radio" checked="checked"  name="activity" value="md" style="margin-left: 30px" >均线策略
+
+    </ul>
+    <table class="table table-hover">
+        <tr>
+            <th>持币类型</th>
+            <th>数量</th>
+            <th>成本价</th>
+            <th>盈亏率</th>
+            {% for k,v in account.items %}
+                <th>{{ k }}</th>
+                <th>{{ v.num }}</th>
+                <th>{{ v.cost }}</th>
+                <th>{{ v.ratio }}</th>
+            {% endfor %}
+        </tr>
+    </table>
+    <img src="/plot">
+</body>
+</html>
