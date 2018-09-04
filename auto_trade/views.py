@@ -52,4 +52,5 @@ def get_price(req):
     currency_price = get_now_data(current_list)
     for k, v in currency_price.items():
         context.positions[k]['ratio'] = v/context.positions[k]['cost']
+    models.Account.objects.update(**context.positions)
     return HttpResponse(json.dumps(context.positions))
